@@ -7,9 +7,21 @@ import {
   faShoppingBag,
   faCamera,
   faBars,
+  faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
+import SideNavbar from "./SideNavbar";
 
-function Navar() {
+function Navbar() {
+  const [isLogged, setIsLogged] = React.useState(false);
+
+  const toggleSideNavbar = () => {
+    setIsLogged(!isLogged);
+  };
+
+  const closeSideNavbar = () => {
+    setIsLogged(false);
+  };
+
   return (
     <>
       <div className="bg-black w-full h-8">
@@ -19,11 +31,24 @@ function Navar() {
       </div>
       <div className="flex justify-around items-center h-20">
         <div>
-          <FontAwesomeIcon icon={faBars} className="fa-thin" />
+          {isLogged ? (
+            <FontAwesomeIcon
+              onClick={closeSideNavbar}
+              icon={faTimesCircle}
+              className="fa-thin cursor-pointer"
+            />
+          ) : (
+            <FontAwesomeIcon
+              onClick={toggleSideNavbar}
+              icon={faBars}
+              className="fa-thin cursor-pointer"
+            />
+          )}
+          {isLogged && <SideNavbar />}
         </div>
 
         <div>LOGO</div>
-        <div className="flex justify-around gap-9 ">
+        <div className="flex justify-around gap-9">
           <FontAwesomeIcon icon={faUser} className="fa-thin text-md" />
           <FontAwesomeIcon icon={faMagnifyingGlass} className="fa-thin" />
           <FontAwesomeIcon icon={faHeart} className="fa-thin" />
@@ -60,4 +85,4 @@ function Navar() {
   );
 }
 
-export default Navar;
+export default Navbar;
